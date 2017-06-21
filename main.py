@@ -1,5 +1,6 @@
 #Packages:
 import psycopg2
+import os
 import sys
 import datetime
 import pprint
@@ -47,8 +48,14 @@ def uniprotAPI(acc_n): #Defining uniprotAPI
 	return(accession)
 
 
+host = os.environ.get('PG_HOST_UCKB')
+port = os.environ.get('PG_PORT_UCKB')
+database = os.environ.get('PG_DB_UCKB')
+user = os.environ.get('PG_USER_UCKB')
+password = os.environ.get('PG_PASSWORD_UCKB')
+
 #Connection to the DB: Useful > https://www.youtube.com/watch?v=Z9txOWCWMwA, https://wiki.postgresql.org/wiki/Using_psycopg2_with_PostgreSQL
-conn_string = "host='localhost' dbname='unicarbkb' user='postgres'"
+conn_string = "host=" + host + " dbname=" + database + " port=" + port + " user=" + user + " password=" + password
 
 # get a connection, if a connect cannot be made an exception will be raised here
 conn = psycopg2.connect(conn_string)
